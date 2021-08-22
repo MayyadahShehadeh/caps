@@ -15,65 +15,11 @@ run <code>node caps.js</code> to see the output in your terminal
 
 **what expext to see:**
 
->
->EVENT, {event: pickup
->
->time: Sun Aug 22 2021 16:08:30 GMT+0300 (Eastern European Summer Time)
->
->payload: {
->
- > storeName: 'flower shop',
->
- > orderId: 'f3552b0e-c565-4c1e-aa69-3de5e6d084d8',
->
- > customerName: 'Earl Cronin',
->
- > address: '084 Davis Ramp'
->
->}
->
->DRIVER: picked up f3552b0e-c565-4c1e-aa69-3de5e6d084d8
->
->EVENT, {event: 'in-transit
->
->time: Sun Aug 22 2021 16:08:31 GMT+0300 (Eastern European Summer Time)
->
->payload: {
->
- > storeName: 'flower shop',
->
- > orderId: 'f3552b0e-c565-4c1e-aa69-3de5e6d084d8',
->
- > customerName: 'Earl Cronin',
->
- > address: '084 Davis Ramp'
->
->}
->
->DRIVER: delivered up f3552b0e-c565-4c1e-aa69-3de5e6d084d8
->
->VENDOR: Thank you for delivering f3552b0e-c565-4c1e-aa69-3de5e6d084d8
->
->EVENT, {event: 'delivered
->
->time: Sun Aug 22 2021 16:08:34 GMT+0300 (Eastern European Summer Time)
->
->payload: {
->
- > storeName: 'flower shop',
->
- > orderId: 'f3552b0e-c565-4c1e-aa69-3de5e6d084d8',
->
- > customerName: 'Earl Cronin',
->
- > address: '084 Davis Ramp'
->
->}
->
+![output](./images/Untitled55.png)
 
 
 ------------------------
 
 ### UML 
 
-![caps uml](./capsDiagram.png)
+![caps uml](./images/capsDiagram.png)
