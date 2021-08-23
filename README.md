@@ -6,6 +6,13 @@ Begin the build of an application for a company called CAPS - The Code Academy P
 
 ---------------------------
 
+**CAPS Phase 2:**
+Continue working on a multi-day build of our delivery tracking system, moving event management to socket.io
+
+In this phase, we’ll be moving away from using TCP for our event network and switching instead in to using socket.io, which takes on some of the complexity we had to manage ourselves, and also works equally well between servers and with websites.
+
+-----------------
+
 ### Test
 
 
