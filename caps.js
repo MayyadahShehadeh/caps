@@ -1,32 +1,46 @@
 'use strict';
 
-const event = require('./events');
-require('./modulars/driver');
-require('./modulars/vendor');
+require('dotenv').config();
+const port = process.env.PORT || 3001;
+
+const io = require('socket.io')(port);
+
+const CAPS = io.of('/caps');
+
+// const event = require('./events');
+// require('./modulars/driver/driver');
+// require('./modulars/vendor/vendor');
 
 
-
-event.on('pickup', (payload)=>{
-
-console.log(`EVENT, {event: 'pickup'`);
-console.log(`time: ${new Date()}`);
-console.log('payload:',payload);
-
+io.on('connection', (socket)=>{
+    console.log('CONNECTED', socket.id);
 
 })
 
-event.on('in-transit',(payload)=>{
-    console.log(`EVENT, {event: 'in-transit`);
+CAPS.on('connection', (socket)=>{
+    console.log('CONNECTED', socket.id);
+
+    socket.on('pickup', (payload)=>{
+    console.log(`EVENT, {event: 'pickup'`);
     console.log(`time: ${new Date()}`);
     console.log('payload:',payload);
-    
+    CAPS.emit('pickup',payload);
+    });
 
-})
+    socket.on('in-transit',(payload)=>{
+        console.log(`EVENT, {event: 'in-transit`);
+        console.log(`time: ${new Date()}`);
+        console.log('payload:',payload);
+        CAPS.emit('transit',payload);
 
-event.on('delivered',(payload)=>{
-    console.log(`EVENT, {event: 'delivered`);
-    console.log(`time: ${new Date()}`);
-    console.log('payload:',payload);
-    
+    });
 
-})
+    socket.on('delivered',(payload)=>{
+        console.log(`EVENT, {event: 'delivered`);
+        console.log(`time: ${new Date()}`);
+        console.log('payload:',payload);
+        CAPS.emit('delivered',payload);
+
+    });
+});
+
