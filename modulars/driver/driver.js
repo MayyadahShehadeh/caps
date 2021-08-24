@@ -14,10 +14,8 @@ capsConnection.on('pickup',(payload)=>{
 setTimeout(()=>{
     console.log(`picking up ${payload.orderId}`);
     capsConnection.emit('in-transit',(payload));
+    
 },1500);
-
-
-
 
 
 })
@@ -27,6 +25,11 @@ console.log(`DRIVER: delivered up ${payload.orderId}`);
 capsConnection.emit('delivered',payload);
 
 });
+})
 
+capsConnection.emit('get_all');
 
+capsConnection.on('chore', msg=> {
+    console.log("driver got this msg: ", msg)
+    capsConnection.emit('received', msg)
 })
