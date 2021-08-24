@@ -26,7 +26,7 @@ setTimeout(()=>{
 console.log(`DRIVER: delivered up ${payload.orderId}`);
 capsConnection.emit('delivered',payload);
 
-},3000);
+});
 
 
 })

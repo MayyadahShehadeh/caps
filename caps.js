@@ -31,7 +31,7 @@ CAPS.on('connection', (socket)=>{
         console.log(`EVENT, {event: 'in-transit`);
         console.log(`time: ${new Date()}`);
         console.log('payload:',payload);
-        CAPS.emit('transit',payload);
+        socket.emit('in-transit',payload);
 
     });
 
