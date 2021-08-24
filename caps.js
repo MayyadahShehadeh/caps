@@ -1,6 +1,7 @@
 'use strict';
 
 require('dotenv').config();
+const faker = require('faker');
 const port = process.env.PORT || 3001;
 
 const io = require('socket.io')(port);
@@ -11,6 +12,9 @@ const CAPS = io.of('/caps');
 // require('./modulars/driver/driver');
 // require('./modulars/vendor/vendor');
 
+const msgQueue = {
+    chores : {}
+}
 
 io.on('connection', (socket)=>{
     console.log('CONNECTED', socket.id);
@@ -42,5 +46,28 @@ CAPS.on('connection', (socket)=>{
         CAPS.emit('delivered',payload);
 
     });
+    socket.on('new_message', payload=> {
+        console.log("adding a new task ....")
+        const id = faker.datatype.uuid();
+        console.log("id ====> ", id)
+        msgQueue.chores[id] = payload;
+        socket.emit('added', payload); // telling the parent a task was added
+        CAPS.emit('chore', {id: id, payload: msgQueue.chores[id]});
+        console.log("after add msgQueue ========> ", msgQueue)
+    });
+
+    socket.on('get_all', ()=> {
+        Object.keys(msgQueue.chores).forEach(id=> {
+            socket.emit('chore', {id: id, payload: msgQueue.chores[id] })
+        });
+    });
+
+    socket.on('received', msg => {
+        console.log("received on queue will remove it ...")
+        // he child confirmed receiving , remove from queue
+        delete msgQueue.chores[msg.id];
+        console.log("after delete msgQueue @@@@@@@@@@ ", msgQueue)
+    })
+
 });
 
