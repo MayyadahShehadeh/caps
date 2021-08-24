@@ -8,21 +8,22 @@ let host = 'http://localhost:3001';
 const capsConnection = io.connect(`${host}/caps`);
 
 const storeName= process.env.STORE_NAME || 'flower shop';
-const storeId = process.env.STORE_ID || 'jnjkfdnkjbnfk';
 
 
-setTimeout(()=>{
+
+setInterval(()=>{
+        const orderInfor={
+            storeName,
+            storeId: faker.datatype.uuid(),
+             orderId :faker.datatype.uuid(),
+            customerName : faker.name.findName(),
+             address: faker.address.streetAddress(),
+        }
+        
     
-    const orderInfor={
-        storeName,
-        storeId,
-         orderId :faker.datatype.uuid(),
-        customerName : faker.name.findName(),
-         address: faker.address.streetAddress(),
-    }
+        capsConnection.emit('pickup',orderInfor );
+    },5000);
 
-    capsConnection.emit('pickup',orderInfor );
-},5000);
 
 
 capsConnection.on('delivered', (payload) => {
